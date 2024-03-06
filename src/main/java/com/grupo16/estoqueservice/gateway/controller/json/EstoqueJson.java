@@ -22,4 +22,12 @@ public class EstoqueJson {
 		idProduto = estoque.getIdProduto();
 		quantidade = estoque.getQuantidade();
 	}
+
+	public Estoque mapperToDomain() {
+		return Estoque.builder()
+				.id(id)
+				.idProduto(idProduto)
+				.quantidade(quantidade)
+				.build();
+	}
 }
