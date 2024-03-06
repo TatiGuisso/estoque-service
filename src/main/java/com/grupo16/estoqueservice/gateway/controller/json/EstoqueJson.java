@@ -5,10 +5,12 @@ import com.grupo16.estoqueservice.domain.Estoque;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class EstoqueJson {
 	
 	private Long id;
