@@ -2,8 +2,9 @@ package com.grupo16.estoqueservice.gateway.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.grupo16.estoqueservice.usecase.ReservarEstoqueUseCase;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 import com.grupo16.estoqueservice.domain.Estoque;
 import com.grupo16.estoqueservice.gateway.controller.json.EstoqueJson;
@@ -13,10 +14,16 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
+@AllArgsConstructor
+@RequestMapping("estoques")
 public class EstoqueController {
 	
 	private ObterEstoqueUseCase obterEstoqueUseCase;
-	
+
+	private ReservarEstoqueUseCase reservarEstoqueUseCase;
+
+
+	@GetMapping
 	public List<EstoqueJson> obter(
 			@RequestParam(name = "idsProdutos")List<Long> idsProdutos){
 		log.trace("Start idsProdutos={}", idsProdutos);
@@ -28,4 +35,14 @@ public class EstoqueController {
 		return estoqueListJson;
 	}
 
+	@PutMapping("reserva")
+	public List<EstoqueJson> reservar(@RequestBody List<EstoqueJson> estoqueJsonList) {
+		log.trace("Start estoqueJsonList={}", estoqueJsonList);
+
+		List<Estoque> estoqueList = estoqueJsonList.stream().map(EstoqueJson::mapperToDomain).toList();
+		List<EstoqueJson> newEstoqueJsonList = reservarEstoqueUseCase.reservar(estoqueList).stream().map(EstoqueJson::new).toList();
+
+		log.trace("End newEstoqueJsonList={}", newEstoqueJsonList);
+		return newEstoqueJsonList;
+	}
 }
