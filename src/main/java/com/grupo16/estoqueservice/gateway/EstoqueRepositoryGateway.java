@@ -8,4 +8,5 @@ public interface EstoqueRepositoryGateway {
 
 	List<Estoque> obter(List<Long> idProdutos);
 
+	List<Estoque> reservar(List<Estoque> estoque);
 }
