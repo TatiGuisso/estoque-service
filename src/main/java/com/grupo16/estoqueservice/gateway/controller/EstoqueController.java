@@ -1,4 +1,4 @@
-package com.grupo16.estoqueservice.controller;
+package com.grupo16.estoqueservice.gateway.controller;
 
 import java.util.List;
 

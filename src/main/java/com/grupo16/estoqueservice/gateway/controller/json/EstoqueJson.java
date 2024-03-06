@@ -1,4 +1,4 @@
-package com.grupo16.estoqueservice.controller.json;
+package com.grupo16.estoqueservice.gateway.controller.json;
 
 import com.grupo16.estoqueservice.domain.Estoque;
 

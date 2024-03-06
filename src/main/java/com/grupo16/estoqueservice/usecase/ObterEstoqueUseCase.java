@@ -2,13 +2,21 @@ package com.grupo16.estoqueservice.usecase;
 
 import java.util.List;
 
-import com.grupo16.estoqueservice.domain.Estoque;
+import org.springframework.stereotype.Service;
 
+import com.grupo16.estoqueservice.domain.Estoque;
+import com.grupo16.estoqueservice.gateway.EstoqueRepositoryGateway;
+
+import lombok.AllArgsConstructor;
+
+@Service
+@AllArgsConstructor
 public class ObterEstoqueUseCase {
+	
+	private EstoqueRepositoryGateway estoqueRepositoryGateway;
 
 	public List<Estoque> obter(List<Long> idProdutos) {
-		// TODO Auto-generated method stub
-		return null;
+		return estoqueRepositoryGateway.obter(idProdutos);
 	}
 
 }
