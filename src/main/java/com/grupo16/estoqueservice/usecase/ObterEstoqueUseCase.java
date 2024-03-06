@@ -15,8 +15,8 @@ public class ObterEstoqueUseCase {
 	
 	private EstoqueRepositoryGateway estoqueRepositoryGateway;
 
-	public List<Estoque> obter(List<Long> idProdutos) {
-		return estoqueRepositoryGateway.obter(idProdutos);
+	public List<Estoque> obter(List<Long> idsProdutos) {
+		return estoqueRepositoryGateway.obter(idsProdutos);
 	}
 
 }

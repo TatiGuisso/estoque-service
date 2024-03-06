@@ -18,9 +18,9 @@ public class EstoqueMySqlGateway implements EstoqueRepositoryGateway{
 	private EstoqueRepository estoqueRepository;
 
 	@Override
-	public List<Estoque> obter(List<Long> idProdutos) {
+	public List<Estoque> obter(List<Long> idsProdutos) {
 		
-		List<EstoqueEntity> estoqueEntityList = estoqueRepository.findAllById(idProdutos);
+		List<EstoqueEntity> estoqueEntityList = estoqueRepository.findAllById(idsProdutos);
 		return estoqueEntityList.stream().map(EstoqueEntity::mapperToDomain).toList();
 	}
 

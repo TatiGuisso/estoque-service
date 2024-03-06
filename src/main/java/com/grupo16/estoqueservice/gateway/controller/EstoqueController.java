@@ -18,10 +18,10 @@ public class EstoqueController {
 	private ObterEstoqueUseCase obterEstoqueUseCase;
 	
 	public List<EstoqueJson> obter(
-			@RequestParam(name = "idProduto")List<Long> idProdutos){
-		log.trace("Start idProduto={}", idProdutos);
+			@RequestParam(name = "idsProdutos")List<Long> idsProdutos){
+		log.trace("Start idsProdutos={}", idsProdutos);
 		
-		List<Estoque> estoqueList = obterEstoqueUseCase.obter(idProdutos);
+		List<Estoque> estoqueList = obterEstoqueUseCase.obter(idsProdutos);
 		List<EstoqueJson> estoqueListJson = estoqueList.stream().map(EstoqueJson::new).toList();
 		
 		log.trace("End estoquesJson={}", estoqueListJson);
