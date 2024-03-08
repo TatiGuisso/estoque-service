@@ -30,16 +30,22 @@ public class BaixarEstoqueUseCase {
     	
     	List<Estoque> estoques = estoqueRepositoryGateway.obter(produtoIds);
     	
-    	estoqueListDesejada.forEach(ed -> {
+    	verificaReservaDisponivelDandoBaixa(estoqueListDesejada, estoques);
+    	
+    	estoqueRepositoryGateway.salvarBaixa(estoques);
+    }
+
+
+	private void verificaReservaDisponivelDandoBaixa(List<Estoque> estoqueListDesejada, List<Estoque> estoques) {
+		estoqueListDesejada.forEach(ed -> {
     		Estoque estoque = estoques.stream().filter(e -> e.getIdProduto().equals(ed.getIdProduto())).findAny().orElseThrow();
     		boolean contemReserva = estoque.contemReserva(ed.getQuantidade());
     		if(!contemReserva) {
     			log.warn("Reserva insuficuente. produtoId={}, desejado={}. disponivel={}", ed.getIdProduto(), ed.getQuantidade(), estoque.getReserva());
     			throw new ReservaInsuficienteException();
     		}
+    		
+    		estoque.efetuarBaixa(ed.getQuantidade());
     	});
-    	
-    	//TODO: decrementar a reserva e salvar na base de dados
-
-    }
+	}
 }

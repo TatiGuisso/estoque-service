@@ -19,4 +19,9 @@ public class Estoque {
 	public boolean contemReserva(Long quantidade) {
 		return reserva >= quantidade;
 	}
+
+	public void efetuarBaixa(Long quantidadeADebitar) {
+		quantidade = quantidade - quantidadeADebitar; 
+		reserva = reserva - quantidadeADebitar; 
+	}
 }
