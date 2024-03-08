@@ -15,4 +15,8 @@ public class Estoque {
 	public Long getQuantidadeDisponivel() {
 		return quantidade - reserva;
 	}
+	
+	public boolean contemReserva(Long quantidade) {
+		return reserva >= quantidade;
+	}
 }
