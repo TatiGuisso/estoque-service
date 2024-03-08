@@ -2,6 +2,7 @@ package com.grupo16.estoqueservice.gateway.controller;
 
 import java.util.List;
 
+import com.grupo16.estoqueservice.usecase.CriarAlterarEstoqueUseCase;
 import com.grupo16.estoqueservice.usecase.ReservarEstoqueUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,8 @@ public class EstoqueController {
 
 	private ReservarEstoqueUseCase reservarEstoqueUseCase;
 
+	private CriarAlterarEstoqueUseCase criarAlterarEstoqueUseCase;
+
 
 	@GetMapping
 	public List<EstoqueJson> obter(
@@ -33,6 +36,17 @@ public class EstoqueController {
 		
 		log.trace("End estoquesJson={}", estoqueListJson);
 		return estoqueListJson;
+	}
+
+	@PostMapping("atualizar")
+	public Long atualizar(@RequestBody EstoqueJson estoqueJson) {
+		log.trace("Start estoqueJson={}", estoqueJson);
+
+		Estoque estoque = estoqueJson.mapperToDomain();
+		Long id = criarAlterarEstoqueUseCase.atualizar(estoque);
+
+		log.trace("End id={}", id);
+		return id;
 	}
 
 	@PutMapping("reserva")
