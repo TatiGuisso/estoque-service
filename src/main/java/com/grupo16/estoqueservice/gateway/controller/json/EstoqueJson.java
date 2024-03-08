@@ -20,7 +20,7 @@ public class EstoqueJson {
 	public EstoqueJson(Estoque estoque) {
 		id = estoque.getId();
 		idProduto = estoque.getIdProduto();
-		quantidade = estoque.getQuantidade();
+		quantidade = estoque.getQuantidadeDisponivel(); 
 	}
 
 	public Estoque mapperToDomain() {

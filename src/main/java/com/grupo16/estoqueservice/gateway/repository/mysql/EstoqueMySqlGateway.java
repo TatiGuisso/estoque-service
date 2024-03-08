@@ -21,7 +21,7 @@ public class EstoqueMySqlGateway implements EstoqueRepositoryGateway{
 	@Override
 	public List<Estoque> obter(List<Long> idsProdutos) {
 		
-		List<EstoqueEntity> estoqueEntityList = estoqueRepository.findAllById(idsProdutos);
+		List<EstoqueEntity> estoqueEntityList = estoqueRepository.findByIdProdutoIn(idsProdutos);
 		return estoqueEntityList.stream().map(EstoqueEntity::mapperToDomain).toList();
 	}
 
@@ -31,7 +31,7 @@ public class EstoqueMySqlGateway implements EstoqueRepositoryGateway{
 		List<EstoqueEntity> estoqueEntityList = estoque.stream().map(EstoqueEntity::new).toList();
 
 		estoqueEntityList.forEach(e -> {
-			Optional<EstoqueEntity> exists = estoqueRepository.findById(e.getId());
+			Optional<EstoqueEntity> exists = estoqueRepository.findByIdProduto(e.getIdProduto());
 
 			if(!exists.isEmpty()) {
 				EstoqueEntity entity = exists.get();
@@ -39,7 +39,8 @@ public class EstoqueMySqlGateway implements EstoqueRepositoryGateway{
 				EstoqueEntity newEntity = EstoqueEntity.builder()
 						.id(entity.getId())
 						.idProduto(entity.getIdProduto())
-						.quantidade(entity.getQuantidade() - e.getQuantidade())
+						.quantidade(entity.getQuantidade())
+						.reserva(e.getQuantidade())
 						.build();
 				estoqueRepository.save(newEntity);
 			}

@@ -10,5 +10,9 @@ public class Estoque {
 	private Long id;
 	private Long idProduto;
 	private Long quantidade;
+	private Long reserva;
 
+	public Long getQuantidadeDisponivel() {
+		return quantidade - reserva;
+	}
 }

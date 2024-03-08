@@ -25,11 +25,13 @@ public class EstoqueEntity {
 	private Long id;
 	private Long idProduto;
 	private Long quantidade;
+	private Long reserva;
 	
 	public EstoqueEntity(Estoque estoque) {
 		id = estoque.getId();
 		idProduto = estoque.getIdProduto();
 		quantidade = estoque.getQuantidade();
+		reserva = estoque.getReserva();
 	}
 	
 	public Estoque mapperToDomain() {
@@ -37,6 +39,7 @@ public class EstoqueEntity {
 				.id(id)
 				.idProduto(idProduto)
 				.quantidade(quantidade)
+				.reserva(reserva == null ? 0L : reserva)
 				.build();
 	}
 
