@@ -1,6 +1,7 @@
 package com.grupo16.estoqueservice.usecase;
 
 import com.grupo16.estoqueservice.domain.Estoque;
+import com.grupo16.estoqueservice.exception.ReservaInsuficienteException;
 import com.grupo16.estoqueservice.gateway.EstoqueRepositoryGateway;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,17 +18,29 @@ import java.util.List;
 @AllArgsConstructor
 public class ReservarEstoqueUseCase {
 
-    private EstoqueRepositoryGateway estoqueRepositoryGateway;
+	private EstoqueRepositoryGateway estoqueRepositoryGateway;
 
 
-    public List<Estoque> reservar(List<Estoque> estoqueList) {
-    	
-    	//FIXME Aqui buscar o estoque dos produtos chamando OBTER 
-    	/*
-    	 * fazer aqui a regra para conferir estoque x reserva
-    	 */
-    	
-    	
-        return estoqueRepositoryGateway.reservar(estoqueList);
-    }
+	public List<Estoque> reservar(List<Estoque> estoqueList) {
+
+		//FIXME Aqui buscar o estoque dos produtos chamando OBTER 
+		/*
+		 * fazer aqui a regra para conferir estoque x reserva
+		 */
+		List<Long> idProdutos = estoqueList.stream().mapToLong(Estoque::getIdProduto).boxed().toList();
+		List<Estoque> estoqueFound = estoqueRepositoryGateway.obter(idProdutos);
+
+		estoqueFound.forEach(ef -> {
+			for (Estoque estoque : estoqueList) {
+				if(ef.getIdProduto().equals(estoque.getIdProduto())) {
+					if (ef.getQuantidadeDisponivel() < estoque.getQuantidade()) {
+						throw new ReservaInsuficienteException();
+					}
+					break;
+				}
+			}
+		});
+
+		return estoqueRepositoryGateway.reservar(estoqueList);
+	}
 }
