@@ -1,12 +1,12 @@
 package com.grupo16.estoqueservice.gateway.repository.mysql;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
 import com.grupo16.estoqueservice.domain.Estoque;
-import com.grupo16.estoqueservice.exception.EstoqueInsuficienteException;
 import com.grupo16.estoqueservice.gateway.EstoqueRepositoryGateway;
 import com.grupo16.estoqueservice.gateway.repository.jpa.EstoqueRepository;
 import com.grupo16.estoqueservice.gateway.repository.jpa.entity.EstoqueEntity;
@@ -31,7 +31,8 @@ public class EstoqueMySqlGateway implements EstoqueRepositoryGateway{
 	public List<Estoque> reservar(List<Estoque> estoque) {
 
 		List<EstoqueEntity> estoqueEntityList = estoque.stream().map(EstoqueEntity::new).toList();
-
+		List<EstoqueEntity> existsList = new ArrayList<>();
+		
 		estoqueEntityList.forEach(e -> {
 			Optional<EstoqueEntity> exists = estoqueRepository.findByIdProduto(e.getIdProduto());
 
@@ -44,16 +45,12 @@ public class EstoqueMySqlGateway implements EstoqueRepositoryGateway{
 						.quantidade(entity.getQuantidade())
 						.reserva(e.getQuantidade() + entity.getReserva())
 						.build();
-				
-				if(newEntity.getReserva() > newEntity.getQuantidade()) {
-					throw new EstoqueInsuficienteException();
-				}
-				
 				estoqueRepository.save(newEntity);
+				existsList.add(newEntity);
 			}
 		});
 
-		return estoqueEntityList.stream().map(EstoqueEntity::mapperToDomain).toList();
+		return existsList.stream().map(EstoqueEntity::mapperToDomain).toList();
 	}
 
 	@Override
