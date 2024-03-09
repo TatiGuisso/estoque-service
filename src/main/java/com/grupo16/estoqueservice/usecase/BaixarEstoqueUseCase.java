@@ -32,7 +32,7 @@ public class BaixarEstoqueUseCase {
     	
     	verificaReservaDisponivelDandoBaixa(estoqueListDesejada, estoques);
     	
-    	estoqueRepositoryGateway.salvarBaixa(estoques);
+    	estoqueRepositoryGateway.atualizarQuantidadeEReserva(estoques);
     }
 
 

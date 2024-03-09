@@ -3,6 +3,7 @@ package com.grupo16.estoqueservice.gateway.controller;
 import java.util.List;
 
 import com.grupo16.estoqueservice.usecase.BaixarEstoqueUseCase;
+import com.grupo16.estoqueservice.usecase.CancelarReservaUseCase;
 import com.grupo16.estoqueservice.usecase.CriarAlterarEstoqueUseCase;
 import com.grupo16.estoqueservice.usecase.ReservarEstoqueUseCase;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,7 @@ public class EstoqueController {
 	
 	private BaixarEstoqueUseCase baixarEstoqueUseCase;
 
+	private CancelarReservaUseCase cancelarEstoqueUseCase;
 
 	@GetMapping
 	public List<EstoqueJson> obter(
@@ -69,6 +71,16 @@ public class EstoqueController {
 		
 		List<Estoque> estoqueList = estoqueJsonList.stream().map(EstoqueJson::mapperToDomain).toList();
 		baixarEstoqueUseCase.baixar(estoqueList);
+		
+		log.trace("End");
+	}
+	
+	@PutMapping("cancelar-reservas")
+	public void cancelarReservas(@RequestBody List<EstoqueJson> estoqueJsonList) {
+		log.trace("Start estoqueJsonList={}", estoqueJsonList);
+		
+		List<Estoque> estoqueList = estoqueJsonList.stream().map(EstoqueJson::mapperToDomain).toList();
+		cancelarEstoqueUseCase.cancelar(estoqueList);
 		
 		log.trace("End");
 	}

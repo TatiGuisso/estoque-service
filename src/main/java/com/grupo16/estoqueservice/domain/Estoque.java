@@ -24,4 +24,11 @@ public class Estoque {
 		quantidade = quantidade - quantidadeADebitar; 
 		reserva = reserva - quantidadeADebitar; 
 	}
+	
+	public void cancelarReserva(Long quantidadeCancelada) {
+		reserva = reserva - quantidadeCancelada;
+		if(reserva <= 0) {
+			reserva = 0L;
+		}
+	}
 }

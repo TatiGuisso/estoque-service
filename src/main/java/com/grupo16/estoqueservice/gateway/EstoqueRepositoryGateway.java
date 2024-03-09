@@ -12,5 +12,5 @@ public interface EstoqueRepositoryGateway {
 
 	Long atualizar(Estoque estoque);
 
-	void salvarBaixa(List<Estoque> estoques);
+	void atualizarQuantidadeEReserva(List<Estoque> estoques);
 }

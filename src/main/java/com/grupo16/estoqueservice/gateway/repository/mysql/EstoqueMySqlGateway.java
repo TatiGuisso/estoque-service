@@ -81,7 +81,7 @@ public class EstoqueMySqlGateway implements EstoqueRepositoryGateway{
 
 	@Override
 	@Transactional
-	public void salvarBaixa(List<Estoque> estoques) {
+	public void atualizarQuantidadeEReserva(List<Estoque> estoques) {
 		
 		estoques.forEach(e -> {
 			EstoqueEntity estoqueEntity = estoqueRepository.findById(e.getId()).orElseThrow();
