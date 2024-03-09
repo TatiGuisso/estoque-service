@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Component;
 
 import com.grupo16.estoqueservice.domain.Estoque;
+import com.grupo16.estoqueservice.exception.EstoqueInsuficienteException;
 import com.grupo16.estoqueservice.gateway.EstoqueRepositoryGateway;
 import com.grupo16.estoqueservice.gateway.repository.jpa.EstoqueRepository;
 import com.grupo16.estoqueservice.gateway.repository.jpa.entity.EstoqueEntity;
@@ -40,8 +41,13 @@ public class EstoqueMySqlGateway implements EstoqueRepositoryGateway{
 						.id(entity.getId())
 						.idProduto(entity.getIdProduto())
 						.quantidade(entity.getQuantidade())
-						.reserva(e.getQuantidade())
+						.reserva(e.getQuantidade() + entity.getReserva())
 						.build();
+				
+				if(newEntity.getReserva() > newEntity.getQuantidade()) {
+					throw new EstoqueInsuficienteException();
+				}
+				
 				estoqueRepository.save(newEntity);
 			}
 		});

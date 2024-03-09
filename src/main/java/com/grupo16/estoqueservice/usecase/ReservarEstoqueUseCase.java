@@ -21,6 +21,13 @@ public class ReservarEstoqueUseCase {
 
 
     public List<Estoque> reservar(List<Estoque> estoqueList) {
+    	
+    	//FIXME Aqui buscar o estoque dos produtos chamando OBTER 
+    	/*
+    	 * fazer aqui a regra para conferir estoque x reserva
+    	 */
+    	
+    	
         return estoqueRepositoryGateway.reservar(estoqueList);
     }
 }
