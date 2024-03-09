@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="Estoque")
@@ -24,7 +25,11 @@ public class EstoqueEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Long idProduto;
+	
+	@Setter
 	private Long quantidade;
+	
+	@Setter
 	private Long reserva;
 	
 	public EstoqueEntity(Estoque estoque) {

@@ -15,4 +15,20 @@ public class Estoque {
 	public Long getQuantidadeDisponivel() {
 		return quantidade - reserva;
 	}
+	
+	public boolean contemReserva(Long quantidade) {
+		return reserva >= quantidade;
+	}
+
+	public void efetuarBaixa(Long quantidadeADebitar) {
+		quantidade = quantidade - quantidadeADebitar; 
+		reserva = reserva - quantidadeADebitar; 
+	}
+	
+	public void cancelarReserva(Long quantidadeCancelada) {
+		reserva = reserva - quantidadeCancelada;
+		if(reserva <= 0) {
+			reserva = 0L;
+		}
+	}
 }

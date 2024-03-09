@@ -2,6 +2,9 @@ package com.grupo16.estoqueservice.gateway.controller;
 
 import java.util.List;
 
+import com.grupo16.estoqueservice.usecase.BaixarEstoqueUseCase;
+import com.grupo16.estoqueservice.usecase.CancelarReservaUseCase;
+import com.grupo16.estoqueservice.usecase.CriarAlterarEstoqueUseCase;
 import com.grupo16.estoqueservice.usecase.ReservarEstoqueUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +25,11 @@ public class EstoqueController {
 
 	private ReservarEstoqueUseCase reservarEstoqueUseCase;
 
+	private CriarAlterarEstoqueUseCase criarAlterarEstoqueUseCase;
+	
+	private BaixarEstoqueUseCase baixarEstoqueUseCase;
+
+	private CancelarReservaUseCase cancelarEstoqueUseCase;
 
 	@GetMapping
 	public List<EstoqueJson> obter(
@@ -35,6 +43,17 @@ public class EstoqueController {
 		return estoqueListJson;
 	}
 
+	@PostMapping("atualizar")
+	public Long atualizar(@RequestBody EstoqueJson estoqueJson) {
+		log.trace("Start estoqueJson={}", estoqueJson);
+
+		Estoque estoque = estoqueJson.mapperToDomain();
+		Long id = criarAlterarEstoqueUseCase.atualizar(estoque);
+
+		log.trace("End id={}", id);
+		return id;
+	}
+
 	@PutMapping("reserva")
 	public List<EstoqueJson> reservar(@RequestBody List<EstoqueJson> estoqueJsonList) {
 		log.trace("Start estoqueJsonList={}", estoqueJsonList);
@@ -44,5 +63,25 @@ public class EstoqueController {
 
 		log.trace("End newEstoqueJsonList={}", newEstoqueJsonList);
 		return newEstoqueJsonList;
+	}
+	
+	@PutMapping("efetuar-baixas")
+	public void efetuarBaixas(@RequestBody List<EstoqueJson> estoqueJsonList) {
+		log.trace("Start estoqueJsonList={}", estoqueJsonList);
+		
+		List<Estoque> estoqueList = estoqueJsonList.stream().map(EstoqueJson::mapperToDomain).toList();
+		baixarEstoqueUseCase.baixar(estoqueList);
+		
+		log.trace("End");
+	}
+	
+	@PutMapping("cancelar-reservas")
+	public void cancelarReservas(@RequestBody List<EstoqueJson> estoqueJsonList) {
+		log.trace("Start estoqueJsonList={}", estoqueJsonList);
+		
+		List<Estoque> estoqueList = estoqueJsonList.stream().map(EstoqueJson::mapperToDomain).toList();
+		cancelarEstoqueUseCase.cancelar(estoqueList);
+		
+		log.trace("End");
 	}
 }
