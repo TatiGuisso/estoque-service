@@ -149,10 +149,11 @@ curl --location --request PUT 'http://localhost:46693/estoques/reserva' \
 ]
 ```
 
-500 - _Internal Server Error_
+422 - _Unprocessable Entity_
 
 ```
 {
+    "code": "estoque.reservaInsuficiente",
     "message": "Reserva insuficiente."
 }
 ```
@@ -192,10 +193,11 @@ curl --location --request PUT 'http://localhost:42189/estoques/efetuar-baixas' \
 200 - _OK_
 `- Baixa do produto relizada com sucesso`
 
-500 - _Internal Server Error_
+422 - _Unprocessable Entity_
 
 ```
 {
+    "code": "estoque.reservaInsuficiente",
     "message": "Reserva insuficiente."
 }
 ```
