@@ -253,6 +253,9 @@ curl --location --request PUT 'http://localhost:42189/estoques/cancelar-reservas
 - Boas práticas da Linguagem/Framework
 - Clean architecture
 - Banco de Dados MySql
+- Para facilitar a comunicação entre microserviços, o projeto utiliza o Spring Cloud Feign. 
+- Service Discovery
+- API Gateway
 
 <p align="right">(<a href="#readme-top">Ir ao topo</a>)</p>
 
