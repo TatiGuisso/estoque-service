@@ -8,5 +8,5 @@ public class ReservaInsuficienteException extends SystemBaseException {
 	
 	private final String code = "estoque.reservaInsuficiente";//NOSONAR
 	private final String message = "Reserva insuficiente.";//NOSONAR
-	private final Integer httpStatus = 500;//NOSONAR
+	private final Integer httpStatus = 422;//NOSONAR
 }
