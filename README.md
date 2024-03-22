@@ -113,16 +113,16 @@ curl --location 'http://localhost:36339/estoques/atualizar' \
   <summary>Exemplo Request:</summary>
 
 ```
-curl --location --request PUT 'http://localhost:36339/estoques/reserva' \
+curl --location --request PUT 'http://localhost:46693/estoques/reserva' \
 --header 'Content-Type: application/json' \
 --data '[
     {
         "idProduto": 1,
-        "quantidade": 2
+        "quantidade": 10
     },
     {
-        "idProduto": 2,
-        "quantidade": 2
+        "idProduto": 3,
+        "quantidade": 1
     }
 ]'
 ```
@@ -133,6 +133,21 @@ curl --location --request PUT 'http://localhost:36339/estoques/reserva' \
 
 200 - _OK_
 `- Os produtos foram reservados com sucesso`
+
+```
+[
+    {
+        "id": 1,
+        "idProduto": 1,
+        "quantidade": 9
+    },
+    {
+        "id": 3,
+        "idProduto": 3,
+        "quantidade": 19
+    }
+]
+```
 
 500 - _Internal Server Error_
 
