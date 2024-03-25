@@ -9,7 +9,6 @@ O Estoque Service é um sistema de gestão de estoque que permite o gerenciament
 * [Instruções](#instruções)
 * [Funcionalidades de Estoque Service](#funcionalidades-de-estoque-service)
 * [Tecnologias](#-tecnologias)
-* [Ilustração do MS Estoque Service](#ilustração-do-ms-estoque-service)
 
 
 ## Instruções
@@ -258,13 +257,5 @@ curl --location --request PUT 'http://localhost:42189/estoques/cancelar-reservas
 - Para facilitar a comunicação entre microserviços, o projeto utiliza o Spring Cloud Feign. 
 - Service Discovery
 - API Gateway
-
-<p align="right">(<a href="#readme-top">Ir ao topo</a>)</p>
-
----------
-
-## Ilustração do MS Estoque Service
-
-
 
 <p align="right">(<a href="#readme-top">Ir ao topo</a>)</p>
