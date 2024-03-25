@@ -9,7 +9,7 @@ O Estoque Service é um sistema de gestão de estoque que permite o gerenciament
 * [Instruções](#instruções)
 * [Funcionalidades de Estoque Service](#funcionalidades-de-estoque-service)
 * [Tecnologias](#-tecnologias)
-* [Desafios](#-desafios)
+* [Ilustração do MS Estoque Service](#ilustração-do-ms-estoque-service)
 
 
 ## Instruções
@@ -246,7 +246,6 @@ curl --location --request PUT 'http://localhost:42189/estoques/cancelar-reservas
 
 ---------
 
-<a name="tecnologias"></a>
 ## 📍️ Tecnologias
 
 - A API foi construída em Java 18 utilizando Spring Framework 3.2.3
@@ -264,9 +263,8 @@ curl --location --request PUT 'http://localhost:42189/estoques/cancelar-reservas
 
 ---------
 
-<a name="desafios"></a>
-## 📍️ Desafios
+## Ilustração do MS Estoque Service
 
-A arquitetura do Spring Cloud como um todo, alinhado com o uso de Microserviços, nos obrigou a utilizar diversos patterns para que no mundo cloud tudo se conecta-se corretamente e claro, juntamente com as boas práticas, funcionassem perfeitamente como o esperado.
+
 
 <p align="right">(<a href="#readme-top">Ir ao topo</a>)</p>
